@@ -1,4 +1,4 @@
-# date-time-selector
+# gd-date-time-selector
 
 A(nother) date time selector.
 
@@ -11,10 +11,6 @@ This one...
 All internal date manipulation is achieved using [Moment.js](https://momentjs.com/docs/#/parsing/ "Moment.js Homepage")
 
 The component renders an [input-group](https://getbootstrap.com/docs/4.0/components/input-group/)
-
-## Demo
-
-https://codesandbox.io/s/881mmkvlwl
 
 ## Getting Started
 ### Install
