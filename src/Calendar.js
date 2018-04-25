@@ -178,19 +178,19 @@ export default class Calendar extends React.Component {
 
   handleUpdateHour = (e) => {
     if (this.parseTime(e.target.value, 23)) {
-      this.setState({ selected: moment(this.state.selection).hour(e.target.value) })
+      this.updatePage(this.state.page, moment(this.state.selection).set({ 'hour': e.target.value }), this.state.view);
     }
   }
 
   handleUpdateMinute = (e) => {
     if (this.parseTime(e.target.value, 59)) {
-      this.setState({ selected: moment(this.state.selection).minute(e.target.value) })
+      this.updatePage(this.state.page, moment(this.state.selection).set({ 'minute': e.target.value }), this.state.view);
     }
   }
 
   handleUpdateSecond = (e) => {
     if (this.parseTime(e.target.value, 59)) {
-      this.setState({ selected: moment(this.state.selection).second(e.target.value) })
+      this.updatePage(this.state.page, moment(this.state.selection).set({ 'second': e.target.value }), this.state.view);
     }
   }
 

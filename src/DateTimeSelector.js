@@ -15,6 +15,7 @@ export default class DateTimeSelector extends React.Component {
   static propTypes = {
     value: PropTypes.string,
     onChange: PropTypes.func,
+    placeholder: PropTypes.string,
     buttonClasses: PropTypes.string,
     inputClasses: PropTypes.string
   }
@@ -26,15 +27,39 @@ export default class DateTimeSelector extends React.Component {
     inputClasses: ''
   }
 
-  // componentDidMount () {
-  //   document.body.addEventListener('click', this.hideCalendar)
-  // }
-  //
-  // componentWillUnmount () {
-  //   document.body.removeEventListener('click', this.hideCalendar)
-  // }
+  componentDidMount () {
+    document.body.addEventListener('click', this.hideCalendar);
+    this.update(this.props.value);
+  }
+  
+  componentWillUnmount () {
+    this.refs.calendar.removeEventListener('click', this.hideCalendar);
+    document.body.removeEventListener('click', this.hideCalendar);    
+  }
 
-  hideCalendar = () => {
+  checkEventSource = (e, potentialParent) => {
+
+    if(e.target == potentialParent) {
+      return true;
+    }
+
+    let eventTargetParent = e.target.parentNode;
+
+    while(eventTargetParent != null) {
+      if(eventTargetParent == potentialParent) {
+        return true;
+      }
+      eventTargetParent = eventTargetParent.parentNode;
+    }
+
+    return false;
+  }
+
+  hideCalendar = (e) => {
+    if(this.checkEventSource(e, this.refs.calendar)) {
+      return;
+    }
+
     if (this.state.isCalendarVisible) {
       this.setState({ isCalendarVisible: false })
     }
@@ -73,8 +98,9 @@ export default class DateTimeSelector extends React.Component {
   }
 
   render () {
+
     const { isValid, isCalendarVisible, moment } = this.state
-    const { buttonClasses, inputClasses, value, ...rest } = this.props
+    const { buttonClasses, inputClasses, value, placeholder, ...rest } = this.props
 
     return (
       <div className='position-relative'>
@@ -83,7 +109,8 @@ export default class DateTimeSelector extends React.Component {
             className={`form-control ${isValid ? '' : 'text-danger'} ${inputClasses}`}
             value={value}
             onChange={this.handleChange}
-            {...rest} />
+            placeholder={placeholder}
+          />
           <InputGroupButton>
             <Button
               className={buttonClasses}
@@ -92,7 +119,9 @@ export default class DateTimeSelector extends React.Component {
             </Button>
           </InputGroupButton>
         </InputGroup>
-        <Calendar asDropDown visible={isCalendarVisible} value={moment} onSubmit={this.handleCalendarSelection} />
+        <div ref="calendar">
+          <Calendar asDropDown visible={isCalendarVisible} value={moment} onSubmit={this.handleCalendarSelection} />
+        </div>  
       </div>
     )
   }
