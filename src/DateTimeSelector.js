@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import Calendar from './Calendar'
 import { Button, InputGroup, InputGroupButton, Input } from 'reactstrap'
 import { parseDateTime } from 'date-time-parser'
+import moment from 'moment'
 
 export default class DateTimeSelector extends React.Component {
 
@@ -17,14 +18,16 @@ export default class DateTimeSelector extends React.Component {
     onChange: PropTypes.func,
     placeholder: PropTypes.string,
     buttonClasses: PropTypes.string,
-    inputClasses: PropTypes.string
+    inputClasses: PropTypes.string,
+    timeFormat: PropTypes.string
   }
 
   static defaultProps = {
     value: '',
     onChange: null,
     buttonClasses: '',
-    inputClasses: ''
+    inputClasses: '',
+    timeFormat: null
   }
 
   componentDidMount () {
@@ -76,7 +79,7 @@ export default class DateTimeSelector extends React.Component {
   }
 
   update (input) {
-    const mo = parseDateTime(input)
+    const mo = this.props.timeFormat ? moment(input, this.props.timeFormat) : parseDateTime(input)
 
     this.setState({ isValid: mo, moment: mo })
 
@@ -92,7 +95,7 @@ export default class DateTimeSelector extends React.Component {
   handleCalendarSelection = (mo) => {
     this.setState({ isCalendarVisible: false, isValid: mo }, () => {
       if (this.props.onChange) {
-        this.props.onChange({value: mo ? mo.format('L HH:mm:ss') : '', moment: mo})
+        this.props.onChange({value: mo ? mo.format(this.props.timeFormat || 'L HH:mm:ss') : '', moment: mo})
       }
     })
   }

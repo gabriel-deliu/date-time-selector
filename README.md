@@ -16,29 +16,29 @@ The component renders an [input-group](https://getbootstrap.com/docs/4.0/compone
 ### Install
 
 #### npm
-`npm add date-time-selector`
+`npm add gd-date-time-selector`
 
 #### yarn
-`yarn add date-time-selector`
+`yarn add gd-date-time-selector`
 
 ## Usage
 
 
 ### Import
 
-`import DateTimeSelector from 'date-time-selector'`
+`import DateTimeSelector from 'gd-date-time-selector'`
 
 ### JSX
 
 `<DateTimeSelector> `
 
-`<DateTimeSelector onSelected={this.handleSelected} disableTime={true} format='L' default={moment()} />`
+`<DateTimeSelector onChange={this.handleChange} placeholder="Date" value={'25/04/2018 15:49:06'} timeFormat={'DD/MM/YYYY HH:mm:ss'}></DateTimeSelector>`
 
 ## Props
 
 | Prop | Type | Required | Description | Default |
 | :--- | :--- | :---: | :--- | :--- |
-| `default` | Object | | A moment.js object.  This will be the default value selected in the selector |  |
-| `onSelected` | Function | | Will be called when a date is submitted. The selected moment is the only argument. Can be null. | |
-| `format` | String | | [moment.js format string](https://momentjs.com/docs/#/displaying/format/). | 'L LTS' |
-| `disableTime` | Boolean | | Set it to `true` if you'd like to hide the time inputs. | false |
+| `onChange` | Function | | Will be called when a date time is selected. Arguments: [{value: /*formated date*/ '25/04/2018 15:49:06', moment: /*moment*/ mo]. Can be null. | null |
+| `placeholder` | String | | Placeholder string. | '' |
+| `value` | String | | Time formated string. | '' |
+| `timeFormat` | String | | Moment supported time format | null |
