@@ -79,7 +79,7 @@ export default class DateTimeSelector extends React.Component {
   }
 
   update (input) {
-    const mo = this.props.timeFormat ? moment(input, this.props.timeFormat) : parseDateTime(input)
+    const mo = input && this.props.timeFormat ? moment(input, this.props.timeFormat) : parseDateTime(input)
 
     this.setState({ isValid: mo, moment: mo })
 
