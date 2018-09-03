@@ -114,7 +114,7 @@ export default class DateTimeSelector extends React.Component {
             onChange={this.handleChange}
             placeholder={placeholder}
           />
-          <InputGroupButton>
+          <InputGroupButton addonType="append">
             <Button
               className={buttonClasses}
               onClick={this.handleToggleCalendar} >
