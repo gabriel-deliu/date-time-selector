@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Calendar from './Calendar'
-import { Button, InputGroup, InputGroupButton, Input } from 'reactstrap'
+import { Button, InputGroup, InputGroupAddon, Input } from 'reactstrap'
 import { parseDateTime } from 'date-time-parser'
 import moment from 'moment'
 

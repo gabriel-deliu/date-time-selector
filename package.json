@@ -1,6 +1,6 @@
 {
   "name": "gd-date-time-selector",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "main": "dist/index.js",
   "description": "React / Bootstrap 4 Date Time Selector",
   "repository": "https://github.com/gabriel-deliu/gd-date-time-selector.git",
