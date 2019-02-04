@@ -26,7 +26,7 @@ The component renders an [input-group](https://getbootstrap.com/docs/4.0/compone
 
 ### Import
 
-`import DateTimeSelector from 'gd-date-time-selector'`
+`import { DateTimeSelector } from 'gd-date-time-selector'`
 
 ### JSX
 

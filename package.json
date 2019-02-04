@@ -1,6 +1,6 @@
 {
   "name": "gd-date-time-selector",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "main": "dist/index.js",
   "description": "React / Bootstrap 4 Date Time Selector",
   "repository": "https://github.com/gabriel-deliu/gd-date-time-selector.git",
@@ -16,16 +16,16 @@
     "clean": "rm -rf node_modules"
   },
   "peerDependencies": {
-    "react": "16.0.0",
-    "react-dom": "16.0.0",
+    "react": "16.2.0",
+    "react-dom": "16.2.0",
     "reactstrap": "6.4.0"
   },
   "dependencies": {
     "date-time-parser": "1.0.3",
     "moment": "2.19.1",
     "prop-types": "15.5.8",
-    "react": "16.0.0",
-    "react-dom": "16.0.0",
+    "react": "16.2.0",
+    "react-dom": "16.2.0",
     "reactstrap": "6.4.0",
     "react-transition-group": "1.1.2"
   },
