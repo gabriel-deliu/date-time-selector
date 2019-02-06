@@ -287,7 +287,7 @@ const Grid = ({ data, format, onClick, width, children }) =>
 const GridRow = ({ dates, format, width, onClick }) =>
   <Row>
     {dates.map(function (d, i) {
-      return <GridButton key={d.m.unix()} date={d} format={format} onClick={onClick} width={width} />
+      return <GridButton key={'gb-' + i + '-' + d.m.unix()} date={d} format={format} onClick={onClick} width={width} />
     })}
   </Row>
 

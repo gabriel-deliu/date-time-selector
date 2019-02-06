@@ -10,7 +10,8 @@ export default class DateTimeSelector extends React.Component {
   state = {
     moment: null,
     isValidDate: true,
-    isCalendarVisible: false
+    isCalendarVisible: false,
+    formattedValue: ''
   }
 
   static propTypes = {
@@ -19,7 +20,8 @@ export default class DateTimeSelector extends React.Component {
     placeholder: PropTypes.string,
     buttonClasses: PropTypes.string,
     inputClasses: PropTypes.string,
-    timeFormat: PropTypes.string
+    timeFormat: PropTypes.string,
+    inputTimeFormat: PropTypes.string
   }
 
   static defaultProps = {
@@ -27,12 +29,13 @@ export default class DateTimeSelector extends React.Component {
     onChange: null,
     buttonClasses: '',
     inputClasses: '',
-    timeFormat: null
+    timeFormat: 'DD/MM/YYYY HH:mm:ss',
+    inputTimeFormat: 'YYYY-MM-DDTHH:mm:ss:SSS'
   }
 
   componentDidMount () {
     document.body.addEventListener('click', this.hideCalendar);
-    this.update(this.props.value);
+    this.setValue(this.props.value);
   }
   
   componentWillUnmount () {
@@ -70,21 +73,27 @@ export default class DateTimeSelector extends React.Component {
 
   componentWillReceiveProps (nextProps) {
     if (nextProps.value !== this.props.value) {
-      this.update(nextProps.value)
+      this.setValue(nextProps.value)
     }
   }
 
   handleChange = (e) => {
-    this.update(e.target.value)
+    this.update(e.target.value);
+  }
+
+  setValue(value) {
+    const mo = moment(value, this.props.inputTimeFormat);
+    const initialFormattedValue = mo ? mo.format(this.props.timeFormat) : '';
+    this.setState({ isValid: mo, moment: mo, formattedValue: initialFormattedValue })
   }
 
   update (input) {
     const mo = input && this.props.timeFormat ? moment(input, this.props.timeFormat) : parseDateTime(input)
 
-    this.setState({ isValid: mo, moment: mo })
+    this.setState({ isValid: mo, moment: mo, formattedValue: input })
 
     if (this.props.onChange) {
-      this.props.onChange({value: input, moment: mo})
+      this.props.onChange(mo ? mo.format(this.props.inputTimeFormat) : '', mo);
     }
   }
 
@@ -94,15 +103,13 @@ export default class DateTimeSelector extends React.Component {
 
   handleCalendarSelection = (mo) => {
     this.setState({ isCalendarVisible: false, isValid: mo }, () => {
-      if (this.props.onChange) {
-        this.props.onChange({value: mo ? mo.format(this.props.timeFormat || 'L HH:mm:ss') : '', moment: mo})
-      }
-    })
+      this.update(mo ? mo.format(this.props.timeFormat) : '');
+    });
   }
 
   render () {
 
-    const { isValid, isCalendarVisible, moment } = this.state
+    const { isValid, isCalendarVisible, moment, formattedValue } = this.state
     const { buttonClasses, inputClasses, value, placeholder, ...rest } = this.props
 
     return (
@@ -110,7 +117,7 @@ export default class DateTimeSelector extends React.Component {
         <InputGroup>
           <Input
             className={`form-control ${isValid ? '' : 'text-danger'} ${inputClasses}`}
-            value={value}
+            value={formattedValue}
             onChange={this.handleChange}
             placeholder={placeholder}
           />
